@@ -1,35 +1,37 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<section class="flex min-h-[80vh] flex-col items-center justify-center px-6 text-center">
-  <div data-animate class="animate-target space-y-6">
+<section class="px-6 pt-24 pb-16">
+  <div data-animate class="animate-target mx-auto max-w-[var(--width-prose)] space-y-6 text-center">
     <h1 class="font-heading text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
       <span class="bg-gradient-to-br from-text-primary to-text-secondary bg-clip-text text-transparent">
         Raffaele Vasini
       </span>
     </h1>
 
+    <a href="https://github.com/elleVas" target="_blank" rel="noopener noreferrer" class="inline-block text-sm text-text-muted transition-colors hover:text-accent">@elleVas</a>
+
     <p class="text-lg text-text-secondary sm:text-xl">
-      Full-Stack Developer · Backend &amp; Cloud
+      {t('hero.subtitle')}
     </p>
 
-    <p class="mx-auto max-w-[var(--width-prose)] text-base text-text-muted sm:text-lg">
-      Trasformo requisiti di business in sistemi che funzionano — dal database alla pipeline.
+    <p class="text-base text-text-muted sm:text-lg">
+      {t('hero.description')}
     </p>
+  </div>
 
-    <div class="flex items-center justify-center gap-4 pt-4">
-      <a
-        href="#projects"
-        class="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-bg-primary transition-colors hover:bg-accent-hover"
-      >
-        Vedi progetti
-      </a>
-      <a
-        href="/docs"
-        class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-border-hover hover:text-text-primary"
-      >
-        Documentazione
-      </a>
-    </div>
+  <div class="mx-auto mt-6 max-w-[var(--width-prose)] space-y-4 text-center text-text-secondary leading-relaxed">
+    <p>{t('about.p1')}</p>
+    <p>{t('about.p2')}</p>
+    <p>{t('about.p3')}</p>
   </div>
 </section>

@@ -1,0 +1,55 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import DocsSidebar from '../components/DocsSidebar.tsx';
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, localizedPath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  currentSlug: string;
+}
+
+const { title, description, currentSlug } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+
+const allDocs = await getCollection(lang === 'it' ? 'docs-it' : 'docs-en');
+const t = useTranslations(lang);
+const sortedDocs = allDocs
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((doc) => ({ slug: doc.id, title: doc.data.title, href: localizedPath(lang, `/docs/${doc.id}`) }));
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mx-auto flex max-w-[var(--width-content)] gap-8 px-6 py-12">
+    <DocsSidebar docs={sortedDocs} currentSlug={currentSlug} client:load />
+
+    <!-- Mobile docs nav -->
+    <details class="mb-6 rounded-2xl border border-border bg-bg-card p-4 lg:hidden">
+      <summary class="cursor-pointer text-sm font-medium text-text-secondary">
+        {t('nav.docsMenu')}
+      </summary>
+      <ul class="mt-3 space-y-1">
+        {sortedDocs.map((doc) => (
+          <li>
+            <a
+              href={doc.href}
+              class:list={[
+                'block rounded-lg px-3 py-2 text-sm transition-colors',
+                currentSlug === doc.slug
+                  ? 'text-text-primary bg-accent-subtle'
+                  : 'text-text-secondary hover:bg-bg-subtle',
+              ]}
+            >
+              {doc.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+
+    <article class="prose-invert min-w-0 max-w-[var(--width-prose)] flex-1">
+      <slot />
+    </article>
+  </div>
+</BaseLayout>

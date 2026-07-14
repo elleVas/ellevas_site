@@ -1,18 +1,29 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
-<section id="contact" class="px-6 py-24">
+<section id="contact" class="px-6 py-16">
   <div data-animate class="animate-target mx-auto max-w-[var(--width-prose)] text-center">
-    <h2 class="font-heading text-2xl font-semibold text-text-primary sm:text-3xl">
-      Contatti
+    <h2 class="font-heading text-2xl font-semibold sm:text-3xl">
+      <span class="bg-gradient-to-br from-text-primary to-text-secondary bg-clip-text text-transparent">
+        {t('contact.title')}
+      </span>
     </h2>
     <p class="mt-4 text-text-secondary">
-      Hai un progetto in mente? Parliamone.
+      {t('contact.description')}
     </p>
     <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
       <a
         href="mailto:raffaelevasini@gmail.com"
-        class="rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-bg-primary transition-colors hover:bg-accent-hover"
+        class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent hover:text-accent"
       >
         raffaelevasini@gmail.com
       </a>
@@ -20,7 +31,7 @@
         href="https://github.com/elleVas"
         target="_blank"
         rel="noopener noreferrer"
-        class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-border-hover hover:text-text-primary"
+        class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent hover:text-accent"
       >
         GitHub
       </a>
@@ -28,7 +39,7 @@
         href="https://linkedin.com/in/raffaele-vasini-87937470"
         target="_blank"
         rel="noopener noreferrer"
-        class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-border-hover hover:text-text-primary"
+        class="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent hover:text-accent"
       >
         LinkedIn
       </a>

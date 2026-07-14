@@ -1,24 +1,25 @@
 import { useState } from 'react';
+import type { Lang } from '../i18n/translations';
+import { useTranslations } from '../i18n/utils';
 
 interface Technology {
   name: string;
-  color: string;
-  abbr: string;
+  icon: string;
 }
 
 const technologies: Technology[] = [
-  { name: 'TypeScript', color: '#3178C6', abbr: 'TS' },
-  { name: 'NestJS', color: '#E0234E', abbr: 'NJ' },
-  { name: 'Node.js', color: '#339933', abbr: 'NO' },
-  { name: 'PostgreSQL', color: '#4169E1', abbr: 'PG' },
-  { name: 'AWS', color: '#FF9900', abbr: 'AW' },
-  { name: 'Docker', color: '#2496ED', abbr: 'DK' },
-  { name: 'GitHub Actions', color: '#2088FF', abbr: 'GA' },
-  { name: 'React', color: '#61DAFB', abbr: 'RE' },
-  { name: 'Vue', color: '#4FC08D', abbr: 'VU' },
-  { name: 'Tailwind', color: '#06B6D4', abbr: 'TW' },
-  { name: 'Nx', color: '#143055', abbr: 'NX' },
-  { name: 'Vite', color: '#646CFF', abbr: 'VI' },
+  { name: 'TypeScript', icon: 'typescript.svg' },
+  { name: 'NestJS', icon: 'nestjs.svg' },
+  { name: 'Node.js', icon: 'nodejs.svg' },
+  { name: 'PostgreSQL', icon: 'postgresql.svg' },
+  { name: 'AWS', icon: 'aws.svg' },
+  { name: 'Docker', icon: 'docker.svg' },
+  { name: 'GitHub Actions', icon: 'githubactions.svg' },
+  { name: 'React', icon: 'react.svg' },
+  { name: 'Vue', icon: 'vue.svg' },
+  { name: 'Tailwind', icon: 'tailwindcss.svg' },
+  { name: 'Nx', icon: 'nx.svg' },
+  { name: 'Vite', icon: 'vite.svg' },
 ];
 
 function TechItem({ tech }: { tech: Technology }) {
@@ -30,13 +31,16 @@ function TechItem({ tech }: { tech: Technology }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div
-        className="flex h-12 w-12 items-center justify-center rounded-xl bg-bg-subtle transition-colors duration-200"
-        style={{ color: hovered ? tech.color : undefined }}
-      >
-        <span className={`text-xs font-mono font-medium ${!hovered ? 'text-text-muted' : ''}`}>
-          {tech.abbr}
-        </span>
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-bg-subtle transition-all duration-200">
+        <img
+          src={`/icons/${tech.icon}`}
+          alt={tech.name}
+          className="h-7 w-7 transition-all duration-200"
+          style={{
+            filter: hovered ? 'none' : 'grayscale(1) brightness(0.7)',
+            opacity: hovered ? 1 : 0.6,
+          }}
+        />
       </div>
       <span className="text-xs text-text-muted transition-colors group-hover:text-text-secondary">
         {tech.name}
@@ -45,12 +49,20 @@ function TechItem({ tech }: { tech: Technology }) {
   );
 }
 
-export default function TechGrid() {
+interface Props {
+  lang?: Lang;
+}
+
+export default function TechGrid({ lang = 'en' }: Props) {
+  const t = useTranslations(lang);
+
   return (
-    <section id="stack" className="px-6 py-24">
+    <section id="stack" className="px-6 py-16">
       <div className="mx-auto max-w-[var(--width-content)]">
-        <h2 className="text-center font-heading text-2xl font-semibold text-text-primary sm:text-3xl">
-          Tech Stack
+        <h2 className="text-center font-heading text-2xl font-semibold sm:text-3xl">
+          <span className="bg-gradient-to-br from-text-primary to-text-secondary bg-clip-text text-transparent">
+            {t('stack.title')}
+          </span>
         </h2>
         <div className="mt-12 grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-6">
           {technologies.map((tech) => (

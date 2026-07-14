@@ -1,4 +1,10 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const socialLinks = [
   {
     label: 'GitHub',
@@ -21,7 +27,7 @@ const socialLinks = [
 <footer class="border-t border-border">
   <div class="mx-auto flex max-w-[var(--width-content)] flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
     <p class="text-sm text-text-muted">
-      &copy; {new Date().getFullYear()} ellevas. All rights reserved.
+      &copy; {new Date().getFullYear()} ellevas. {t('footer.rights')}
     </p>
 
     <div class="flex items-center gap-4">

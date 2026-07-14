@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import TechGrid from '../../components/TechGrid.tsx';
+import Projects from '../../components/Projects.astro';
+import Contact from '../../components/Contact.astro';
+---
+
+<BaseLayout
+  title="Home"
+  description="Raffaele Vasini — Full-Stack Developer specializzato in backend e cloud. NestJS, PostgreSQL, AWS, TypeScript."
+>
+  <Hero lang="it" />
+  <TechGrid lang="it" client:load />
+  <Projects lang="it" />
+  <Contact lang="it" />
+</BaseLayout>

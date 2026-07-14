@@ -2,6 +2,7 @@
 import Nav from '../components/Nav.tsx';
 import Footer from '../components/Footer.astro';
 import SEO from '../components/SEO.astro';
+import { getLangFromUrl, getAlternatePath } from '../i18n/utils';
 import '../styles/global.css';
 
 interface Props {
@@ -11,10 +12,12 @@ interface Props {
 
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
+const lang = getLangFromUrl(Astro.url);
+const alternate = getAlternatePath(Astro.url);
 ---
 
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -72,7 +75,7 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="flex min-h-dvh flex-col">
-    <Nav currentPath={currentPath} client:load />
+    <Nav currentPath={currentPath} lang={lang} alternateLang={alternate.lang} alternatePath={alternate.path} client:load />
     <main class="flex-1 pt-16">
       <slot />
     </main>
