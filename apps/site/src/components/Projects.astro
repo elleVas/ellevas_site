@@ -1,0 +1,31 @@
+---
+import ProjectCard from './ProjectCard.astro';
+
+const projects = [
+  {
+    title: 'cloudrift',
+    description: 'CLI che analizza account AWS per identificare risorse sprecate e stimarne il costo mensile. Architettura DDD (Ports & Adapters), plugin model, Nx monorepo, AWS SDK v3.',
+    tags: ['Open Source', 'AWS', 'TypeScript', 'DDD'],
+    href: 'https://github.com/elleVas/cloudrift',
+  },
+  {
+    title: 'ellevas.dev',
+    description: 'Questo sito. Astro 7, Tailwind CSS v4, deploy su S3 + CloudFront via AWS CDK, CI/CD con GitHub Actions.',
+    tags: ['Astro', 'AWS CDK', 'Tailwind', 'Bun'],
+    href: 'https://github.com/elleVas/ellevas-site',
+  },
+];
+---
+
+<section id="projects" class="px-6 py-24">
+  <div data-animate class="animate-target mx-auto max-w-[var(--width-content)]">
+    <h2 class="text-center font-heading text-2xl font-semibold text-text-primary sm:text-3xl">
+      Progetti
+    </h2>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2">
+      {projects.map((project) => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </div>
+</section>

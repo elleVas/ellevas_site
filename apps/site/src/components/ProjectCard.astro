@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  href: string;
+}
+
+const { title, description, tags, href } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group block rounded-2xl border border-border bg-bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-border-hover"
+>
+  <h3 class="font-heading text-lg font-semibold text-text-primary group-hover:text-accent">
+    {title}
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-text-secondary">
+    {description}
+  </p>
+  <div class="mt-4 flex flex-wrap gap-2">
+    {tags.map((tag) => (
+      <span class="rounded-lg bg-accent-subtle px-2.5 py-1 text-xs font-medium text-accent">
+        {tag}
+      </span>
+    ))}
+  </div>
+</a>
