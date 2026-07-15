@@ -21,6 +21,9 @@ const sortedDocs = allDocs
 ---
 
 <BaseLayout title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="preload" href="/fonts/geist-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+  </Fragment>
   <div class="mx-auto flex max-w-[var(--width-content)] gap-8 px-6 py-12">
     <DocsSidebar docs={sortedDocs} currentSlug={currentSlug} client:load />
 

@@ -16,10 +16,10 @@ const technologies: Technology[] = [
   { name: 'Docker', icon: 'docker.svg' },
   { name: 'GitHub Actions', icon: 'githubactions.svg' },
   { name: 'React', icon: 'react.svg' },
+  { name: 'Angular', icon: 'angular.svg' },
   { name: 'Vue', icon: 'vue.svg' },
   { name: 'Tailwind', icon: 'tailwindcss.svg' },
   { name: 'Nx', icon: 'nx.svg' },
-  { name: 'Vite', icon: 'vite.svg' },
 ];
 
 function TechItem({ tech }: { tech: Technology }) {
@@ -37,8 +37,8 @@ function TechItem({ tech }: { tech: Technology }) {
           alt={tech.name}
           className="h-7 w-7 transition-all duration-200"
           style={{
-            filter: hovered ? 'none' : 'grayscale(1) brightness(0.7)',
-            opacity: hovered ? 1 : 0.6,
+            filter: 'none',
+            opacity: 1,
           }}
         />
       </div>
@@ -60,7 +60,7 @@ export default function TechGrid({ lang = 'en' }: Props) {
     <section id="stack" className="px-6 py-16">
       <div className="mx-auto max-w-[var(--width-content)]">
         <h2 className="text-center font-heading text-2xl font-semibold sm:text-3xl">
-          <span className="bg-gradient-to-br from-text-primary to-text-secondary bg-clip-text text-transparent">
+          <span className="bg-gradient-to-br from-text-primary to-text-heading bg-clip-text text-transparent">
             {t('stack.title')}
           </span>
         </h2>

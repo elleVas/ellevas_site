@@ -9,7 +9,8 @@
   /* Text */
   --color-text-primary: #F5F5F7;
   --color-text-secondary: #A1A1A6;
-  --color-text-muted: #6E6E73;
+  --color-text-heading: #B8B0A8;
+  --color-text-muted: #86868B;
 
   /* Accent — Lavanda */
   --color-accent: #A5B4FC;
@@ -21,8 +22,8 @@
   --color-border-hover: rgba(255, 255, 255, 0.15);
 
   /* Font families */
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-heading: 'Geist Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
 
   /* Max widths */
@@ -73,7 +74,7 @@ body {
   font-family: var(--font-heading);
   font-size: 2rem;
   font-weight: 700;
-  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-secondary));
+  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-heading));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -86,7 +87,7 @@ body {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 600;
-  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-secondary));
+  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-heading));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -99,7 +100,7 @@ body {
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 600;
-  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-secondary));
+  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-heading));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -111,7 +112,7 @@ body {
   font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 600;
-  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-secondary));
+  background: linear-gradient(to bottom right, var(--color-text-primary), var(--color-text-heading));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

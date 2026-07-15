@@ -12,15 +12,16 @@ const t = useTranslations(lang);
 
 <section class="px-6 pt-24 pb-16">
   <div data-animate class="animate-target mx-auto max-w-[var(--width-prose)] space-y-6 text-center">
-    <h1 class="font-heading text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-      <span class="bg-gradient-to-br from-text-primary to-text-secondary bg-clip-text text-transparent">
-        Raffaele Vasini
-      </span>
-    </h1>
+    <div class="flex flex-col items-center">
+      <h1 class="font-heading text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
+        <span class="bg-gradient-to-br from-text-primary to-text-heading bg-clip-text text-transparent">
+          Raffaele Vasini
+        </span>
+      </h1>
+      <a href="https://github.com/elleVas" target="_blank" rel="noopener noreferrer" class="-mt-2 text-sm text-text-secondary transition-colors hover:text-accent">@elleVas</a>
+    </div>
 
-    <a href="https://github.com/elleVas" target="_blank" rel="noopener noreferrer" class="inline-block text-sm text-text-muted transition-colors hover:text-accent">@elleVas</a>
-
-    <p class="text-lg text-text-secondary sm:text-xl">
+    <p class="text-lg text-text-primary/90 sm:text-xl">
       {t('hero.subtitle')}
     </p>
 
@@ -29,7 +30,7 @@ const t = useTranslations(lang);
     </p>
   </div>
 
-  <div class="mx-auto mt-6 max-w-[var(--width-prose)] space-y-4 text-center text-text-secondary leading-relaxed">
+  <div class="mx-auto mt-6 max-w-[var(--width-prose)] space-y-4 text-center text-text-muted leading-relaxed">
     <p>{t('about.p1')}</p>
     <p>{t('about.p2')}</p>
     <p>{t('about.p3')}</p>

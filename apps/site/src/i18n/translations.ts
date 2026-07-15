@@ -17,7 +17,7 @@ export const translations = {
 
     // Hero
     'hero.subtitle': 'Full-Stack Developer · Backend & Cloud',
-    'hero.description': 'I design and build cloud-native systems, from code to production deploy.',
+    'hero.description': 'I build backend services and manage their infrastructure on AWS.',
     'hero.projects': 'View projects',
     'hero.docs': 'Documentation',
 
@@ -56,7 +56,7 @@ export const translations = {
 
     // Hero
     'hero.subtitle': 'Full-Stack Developer · Backend & Cloud',
-    'hero.description': 'Progetto e sviluppo sistemi cloud-native, dalla scrittura del codice al deploy in produzione.',
+    'hero.description': 'Sviluppo servizi backend e gestisco la loro infrastruttura su AWS.',
     'hero.projects': 'Vedi progetti',
     'hero.docs': 'Documentazione',
 
