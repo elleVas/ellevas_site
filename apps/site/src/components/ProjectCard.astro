@@ -13,7 +13,7 @@ const { title, description, tags, href } = Astro.props;
   href={href}
   target="_blank"
   rel="noopener noreferrer"
-  class="group block rounded-2xl border border-border bg-bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-border-hover"
+  class="group flex flex-col rounded-2xl border border-border bg-bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-border-hover"
 >
   <h3 class="font-heading text-lg font-semibold text-text-primary group-hover:text-accent">
     {title}
@@ -21,7 +21,7 @@ const { title, description, tags, href } = Astro.props;
   <p class="mt-2 text-sm leading-relaxed text-text-secondary">
     {description}
   </p>
-  <div class="mt-4 flex flex-wrap gap-2">
+  <div class="mt-auto flex flex-wrap gap-2 pt-4">
     {tags.map((tag) => (
       <span class="rounded-lg bg-accent-subtle px-2.5 py-1 text-xs font-medium text-accent">
         {tag}
