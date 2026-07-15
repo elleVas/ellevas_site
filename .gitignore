@@ -5,6 +5,9 @@ dist
 tmp
 out-tsc
 
+# CDK synthesis output (generated artifacts, never commit)
+cdk.out
+
 # dependencies
 node_modules
 
@@ -41,3 +44,8 @@ Thumbs.db
 # AI agent files
 CLAUDE.md
 AGENTS.md
+
+
+
+# planning docs
+piano-azione-sito-astro-aws.md

@@ -282,3 +282,25 @@ body {
   border-top: 1px solid var(--color-border);
   margin: 2rem 0;
 }
+
+/* ─── Hero terminal animations ─── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* Scroll-triggered entrance */
+.animate-target {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-target.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}

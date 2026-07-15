@@ -1,0 +1,10 @@
+{
+  "hosted-zone:account=583359355881:domainName=ellevas.dev:region=us-east-1": {
+    "Id": "/hostedzone/Z01199841J0X6U6AYPREC",
+    "Name": "ellevas.dev."
+  },
+  "hosted-zone:account=583359355881:domainName=ellevas.dev:region=eu-central-1": {
+    "Id": "/hostedzone/Z01199841J0X6U6AYPREC",
+    "Name": "ellevas.dev."
+  }
+}

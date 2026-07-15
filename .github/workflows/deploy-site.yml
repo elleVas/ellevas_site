@@ -1,0 +1,49 @@
+name: Deploy Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/site/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: eu-central-1
+  S3_BUCKET: ellevas.dev-site-assets
+  DISTRIBUTION_ID: EPPOCV96KGDK7
+
+jobs:
+  deploy:
+    name: Build & Deploy to S3 + CloudFront
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+        working-directory: apps/site
+
+      - name: Build site
+        run: bun run build
+        working-directory: apps/site
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::583359355881:role/ellevas-site-github-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Sync to S3
+        run: aws s3 sync apps/site/dist s3://${{ env.S3_BUCKET }} --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.DISTRIBUTION_ID }} --paths "/*"

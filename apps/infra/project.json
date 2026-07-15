@@ -1,0 +1,27 @@
+{
+  "name": "infra",
+  "root": "apps/infra",
+  "targets": {
+    "synth": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bunx cdk synth",
+        "cwd": "apps/infra"
+      }
+    },
+    "diff": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bunx cdk diff",
+        "cwd": "apps/infra"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bunx cdk deploy --all --require-approval never",
+        "cwd": "apps/infra"
+      }
+    }
+  }
+}

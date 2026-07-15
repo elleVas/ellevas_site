@@ -1,8 +1,17 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import DocsLayout from '../../layouts/DocsLayout.astro';
 
+// Render the first doc (by order) directly at /docs
 const allDocs = await getCollection('docs-en');
-const firstDoc = allDocs.sort((a, b) => a.data.order - b.data.order)[0];
-
-return Astro.redirect(`/docs/${firstDoc.id}`);
+const doc = allDocs.sort((a, b) => a.data.order - b.data.order)[0];
+const { Content } = await render(doc);
 ---
+
+<DocsLayout
+  title={doc.data.title}
+  description={doc.data.description}
+  currentSlug={doc.id}
+>
+  <Content />
+</DocsLayout>

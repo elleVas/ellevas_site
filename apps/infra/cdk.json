@@ -1,0 +1,13 @@
+{
+  "app": "bunx tsx bin/infra.ts",
+  "watch": {
+    "include": ["bin/**", "lib/**"],
+    "exclude": ["node_modules", "dist", "**/*.d.ts", "**/*.js"]
+  },
+  "context": {
+    "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
+    "@aws-cdk/core:checkSecretUsage": true,
+    "@aws-cdk/core:target-partitions": ["aws"],
+    "@aws-cdk/core:defaultCrossStackReferences": "strong"
+  }
+}

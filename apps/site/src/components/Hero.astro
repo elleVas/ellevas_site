@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '../i18n/translations';
-import { useTranslations } from '../i18n/utils';
+import { useTranslations, localizedPath } from '../i18n/utils';
 
 interface Props {
   lang?: Lang;
@@ -10,29 +10,180 @@ const { lang = 'en' } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<section class="px-6 pt-24 pb-16">
-  <div data-animate class="animate-target mx-auto max-w-[var(--width-prose)] space-y-6 text-center">
-    <div class="flex flex-col items-center">
-      <h1 class="font-heading text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-        <span class="bg-gradient-to-br from-text-primary to-text-heading bg-clip-text text-transparent">
-          Raffaele Vasini
-        </span>
-      </h1>
-      <a href="https://github.com/elleVas" target="_blank" rel="noopener noreferrer" class="-mt-2 text-sm text-text-secondary transition-colors hover:text-accent">@elleVas</a>
+<section class="px-6 pt-24 pb-16 sm:pt-32 sm:pb-20">
+  <div data-animate class="animate-target mx-auto max-w-[var(--width-content)]">
+
+    <!-- Heading + subtitle -->
+    <div class="mx-auto max-w-[var(--width-prose)] space-y-4 text-center">
+      <div class="flex flex-col items-center">
+        <h1 class="font-heading text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
+          <span class="bg-gradient-to-br from-text-primary to-text-heading bg-clip-text text-transparent">
+            Raffaele Vasini
+          </span>
+        </h1>
+        <a
+          href="https://github.com/elleVas"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="-mt-2 text-sm text-text-secondary transition-colors hover:text-accent"
+        >
+          @elleVas
+        </a>
+      </div>
+
+      <p class="text-lg text-text-primary/90 sm:text-xl">
+        {t('hero.subtitle')}
+      </p>
+
+      <p class="text-base text-text-muted sm:text-lg">
+        {t('hero.description')}
+      </p>
     </div>
 
-    <p class="text-lg text-text-primary/90 sm:text-xl">
-      {t('hero.subtitle')}
-    </p>
+    <!-- Terminal visual -->
+    <div class="mx-auto mt-10 max-w-2xl">
+      <div class="overflow-hidden rounded-xl border border-border bg-bg-card shadow-2xl shadow-black/30">
+        <!-- Terminal title bar -->
+        <div class="relative flex items-center border-b border-border bg-bg-subtle px-4 py-3">
+          <div class="flex gap-2">
+            <span class="h-3 w-3 rounded-full bg-[#FF5F57]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#FEBC2E]"></span>
+            <span class="h-3 w-3 rounded-full bg-[#28C840]"></span>
+          </div>
+          <span class="absolute inset-x-0 text-center text-xs text-text-muted font-mono">~/ellevas</span>
+        </div>
 
-    <p class="text-base text-text-muted sm:text-lg">
-      {t('hero.description')}
-    </p>
-  </div>
+        <!-- Terminal content -->
+        <div class="p-5 font-mono text-sm leading-relaxed sm:p-6 sm:text-base sm:leading-relaxed">
+          <!-- Static lines -->
+          <div class="space-y-1">
+            <p>
+              <span class="text-[#28C840]">ellevas</span><span class="text-text-muted">:</span><span class="text-accent">~</span><span class="text-text-muted">$</span>
+              <span class="text-text-primary ml-2">cat about.json</span>
+            </p>
+          </div>
 
-  <div class="mx-auto mt-6 max-w-[var(--width-prose)] space-y-4 text-center text-text-muted leading-relaxed">
-    <p>{t('about.p1')}</p>
-    <p>{t('about.p2')}</p>
-    <p>{t('about.p3')}</p>
+          <div class="mt-4 space-y-1 text-text-secondary">
+            <p><span class="text-text-muted">{'{'}</span></p>
+            <p class="pl-4">
+              <span class="text-accent">"name"</span><span class="text-text-muted">:</span>
+              <span class="text-[#FEBC2E]"> "Raffaele Vasini"</span><span class="text-text-muted">,</span>
+            </p>
+            <p class="pl-4">
+              <span class="text-accent">"role"</span><span class="text-text-muted">:</span>
+              <span class="text-[#FEBC2E]"> "Full-Stack Developer"</span><span class="text-text-muted">,</span>
+            </p>
+            <p class="pl-4">
+              <span class="text-accent">"focus"</span><span class="text-text-muted">:</span>
+              <span class="text-text-muted"> [</span><span class="text-[#FEBC2E]">"Backend"</span><span class="text-text-muted">,</span>
+              <span class="text-[#FEBC2E]"> "Cloud"</span><span class="text-text-muted">,</span>
+              <span class="text-[#FEBC2E]"> "AWS"</span><span class="text-text-muted">],</span>
+            </p>
+            <p class="pl-4">
+              <span class="text-accent">"stack-back"</span><span class="text-text-muted">:</span>
+              <span class="text-text-muted"> [</span><span class="text-[#FEBC2E]">"NestJS"</span><span class="text-text-muted">,</span>
+              <span class="text-[#FEBC2E]"> "PostgreSQL"</span><span class="text-text-muted">,</span>
+              <span class="text-[#FEBC2E]"> "TypeScript"</span><span class="text-text-muted">],</span>
+            </p>
+            <p class="pl-4">
+              <span class="text-accent">"stack-front"</span><span class="text-text-muted">:</span>
+              <span class="text-text-muted"> [</span><span class="text-[#FEBC2E]">"React"</span><span class="text-text-muted">,</span>
+              <span class="text-[#FEBC2E]"> "Vue"</span><span class="text-text-muted">,</span>
+              <span class="text-[#FEBC2E]"> "Angular"</span><span class="text-text-muted">],</span>
+            </p>
+            <p class="pl-4">
+              <span class="text-accent">"available"</span><span class="text-text-muted">:</span>
+              <span class="text-[#28C840]"> true</span>
+            </p>
+            <p><span class="text-text-muted">{'}'}</span></p>
+          </div>
+
+          <!-- Typing line -->
+          <div class="mt-4">
+            <p>
+              <span class="text-[#28C840]">ellevas</span><span class="text-text-muted">:</span><span class="text-accent">~</span><span class="text-text-muted">$</span>
+              <span class="hero-typing ml-2 text-text-primary"></span>
+              <span class="hero-cursor text-accent">|</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA buttons -->
+    <div class="mx-auto mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+      <a
+        href="#projects"
+        class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-bg-primary transition-colors hover:bg-accent-hover"
+      >
+        {t('hero.projects')}
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+      <a
+        href={localizedPath(lang, '/docs')}
+        class="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-secondary transition-colors hover:border-accent hover:text-accent"
+      >
+        {t('hero.docs')}
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
   </div>
 </section>
+
+<script>
+  // Typing animation for the terminal prompt
+  const typingEl = document.querySelector('.hero-typing');
+  const cursorEl = document.querySelector('.hero-cursor');
+
+  if (typingEl && cursorEl) {
+    const phrases = [
+      'npm run build',
+      'aws cdk deploy',
+      'nx run-many --target=test',
+      'docker compose up -d',
+    ];
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let timeout: ReturnType<typeof setTimeout>;
+
+    function type() {
+      const currentPhrase = phrases[phraseIndex];
+
+      if (!isDeleting) {
+        typingEl!.textContent = currentPhrase.slice(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentPhrase.length) {
+          // Pause before deleting
+          timeout = setTimeout(() => {
+            isDeleting = true;
+            type();
+          }, 2000);
+          return;
+        }
+        timeout = setTimeout(type, 80 + Math.random() * 40);
+      } else {
+        typingEl!.textContent = currentPhrase.slice(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+          isDeleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          timeout = setTimeout(type, 500);
+          return;
+        }
+        timeout = setTimeout(type, 40);
+      }
+    }
+
+    // Start animation after a brief delay
+    setTimeout(type, 1000);
+  }
+</script>

@@ -1,0 +1,83 @@
+name: Deploy Infrastructure
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/infra/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/infra/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: eu-central-1
+
+jobs:
+  diff:
+    name: CDK Diff (PR preview)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node (required by CDK CLI)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: bun install
+        working-directory: apps/infra
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::583359355881:role/ellevas-infra-github-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: CDK Diff
+        run: bunx cdk diff --all
+        working-directory: apps/infra
+
+  deploy:
+    name: CDK Deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node (required by CDK CLI)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: bun install
+        working-directory: apps/infra
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::583359355881:role/ellevas-infra-github-deploy
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: CDK Deploy
+        run: bunx cdk deploy --all --require-approval never
+        working-directory: apps/infra
