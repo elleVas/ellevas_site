@@ -26,6 +26,22 @@ export class BudgetStack extends Stack {
           amount: 5,
           unit: 'USD',
         },
+        costFilters: {
+          TagKeyValue: ['user:Project$ellevas-site'],
+        },
+        costTypes: {
+          includeTax: true,
+          includeSubscription: true,
+          includeRecurring: true,
+          includeOtherSubscription: true,
+          includeSupport: false,
+          includeDiscount: true,
+          includeCredit: false,
+          includeRefund: false,
+          includeUpfront: true,
+          useAmortized: false,
+          useBlended: false,
+        },
       },
       notificationsWithSubscribers: [
         {
