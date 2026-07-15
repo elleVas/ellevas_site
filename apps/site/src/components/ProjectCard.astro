@@ -1,29 +1,65 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   title: string;
   description: string;
   tags: string[];
   href: string;
+  image?: string;
+  pixelArt?: boolean;
 }
 
-const { title, description, tags, href } = Astro.props;
+const { title, description, tags, href, image, pixelArt = false } = Astro.props;
 ---
 
 <a
   href={href}
   target="_blank"
   rel="noopener noreferrer"
-  class="group flex flex-col rounded-2xl border border-border bg-bg-card p-6 transition-all hover:-translate-y-0.5 hover:border-border-hover"
+  class:list={[
+    'group flex flex-col rounded-2xl border bg-bg-card p-6 transition-all hover:-translate-y-0.5',
+    pixelArt
+      ? 'border-accent/20 hover:border-accent/40 hover:shadow-[0_0_20px_rgba(165,180,252,0.08)]'
+      : 'border-border hover:border-border-hover',
+  ]}
 >
-  <h3 class="font-heading text-lg font-semibold text-text-primary group-hover:text-accent">
-    {title}
-  </h3>
+  {image && (
+    <div class="mb-4 flex items-center gap-3">
+      <Image
+        src={image}
+        alt={`${title} logo`}
+        width={40}
+        height={40}
+        class:list={[
+          'h-10 w-10',
+          pixelArt && 'rendering-pixelated',
+        ]}
+      />
+      <h3 class:list={[
+        'font-heading text-lg font-semibold text-text-primary group-hover:text-accent',
+        pixelArt && 'font-mono tracking-tight',
+      ]}>
+        {title}
+      </h3>
+    </div>
+  )}
+  {!image && (
+    <h3 class="font-heading text-lg font-semibold text-text-primary group-hover:text-accent">
+      {title}
+    </h3>
+  )}
   <p class="mt-2 text-sm leading-relaxed text-text-secondary">
     {description}
   </p>
   <div class="mt-auto flex flex-wrap gap-2 pt-4">
     {tags.map((tag) => (
-      <span class="rounded-lg bg-accent-subtle px-2.5 py-1 text-xs font-medium text-accent">
+      <span class:list={[
+        'rounded-lg px-2.5 py-1 text-xs font-medium',
+        pixelArt
+          ? 'bg-accent/10 text-accent border border-accent/20'
+          : 'bg-accent-subtle text-accent',
+      ]}>
         {tag}
       </span>
     ))}

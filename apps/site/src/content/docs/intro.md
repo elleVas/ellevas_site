@@ -4,7 +4,10 @@ description: Cos'è cloudrift e a cosa serve.
 order: 1
 ---
 
-# cloudrift
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:1rem;">
+  <img src="/icons/cloudrift.png" alt="cloudrift logo" width="48" height="48" style="image-rendering:pixelated;" />
+  <h1 style="margin:0;">cloudrift</h1>
+</div>
 
 **cloudrift** è una CLI che analizza account AWS per identificare risorse sprecate e stimarne il costo mensile.
 

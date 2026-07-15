@@ -35,6 +35,10 @@ function TechItem({ tech }: { tech: Technology }) {
         <img
           src={`/icons/${tech.icon}`}
           alt={tech.name}
+          width={28}
+          height={28}
+          loading="lazy"
+          decoding="async"
           className="h-7 w-7 transition-all duration-200"
           style={{
             filter: 'none',
