@@ -1,4 +1,4 @@
-import { Stack, type StackProps, CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
+import { Stack, type StackProps, CfnOutput, RemovalPolicy, Duration } from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
@@ -37,6 +37,12 @@ export class HostingStack extends Stack {
       bucketName: `${DOMAIN_NAME}-site-assets`,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.S3_MANAGED,
+      versioned: true,
+      lifecycleRules: [
+        {
+          noncurrentVersionExpiration: Duration.days(5),
+        },
+      ],
       removalPolicy: RemovalPolicy.RETAIN,
       autoDeleteObjects: false,
     });
