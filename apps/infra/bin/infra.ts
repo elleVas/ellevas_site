@@ -4,6 +4,7 @@ import { App, Tags } from 'aws-cdk-lib';
 import { DnsCertificateStack } from '../lib/dns-certificate-stack.js';
 import { HostingStack } from '../lib/hosting-stack.js';
 import { GitHubActionsStack } from '../lib/github-actions-stack.js';
+import { BudgetStack } from '../lib/budget-stack.js';
 import {
   ACCOUNT_ID,
   PRIMARY_REGION,
@@ -37,6 +38,14 @@ new GitHubActionsStack(app, 'EllevasGitHubActionsStack', {
   description: 'IAM roles for GitHub Actions CI/CD (OIDC federation)',
   siteBucketName: hostingStack.siteBucketName,
   distributionId: hostingStack.distributionId,
+});
+
+// ─── Budget Alerts ─────────────────────────────────────────────────────
+
+new BudgetStack(app, 'EllevasBudgetStack', {
+  env: { account: ACCOUNT_ID, region: PRIMARY_REGION },
+  description: 'Monthly cost budget with email alerts at $1 and $5',
+  alertEmail: 'raffaelevasini@gmail.com',
 });
 
 // ─── Global tags for cost tracking ────────────────────────────────────
