@@ -26,9 +26,14 @@ const socialLinks = [
 
 <footer class="border-t border-border">
   <div class="mx-auto flex max-w-[var(--width-content)] flex-col items-center justify-between gap-4 px-6 py-8 sm:flex-row">
-    <p class="text-sm text-text-muted">
-      &copy; {new Date().getFullYear()} ellevas. {t('footer.rights')}
-    </p>
+    <div class="text-center sm:text-left">
+      <p class="text-sm text-text-muted">
+        &copy; {new Date().getFullYear()} ellevas. {t('footer.rights')}
+      </p>
+      <p class="mt-1 text-xs text-text-muted">
+        Raffaele Vasini | Freelance Developer — P.IVA 04546900400
+      </p>
+    </div>
 
     <div class="flex items-center gap-4">
       {socialLinks.map((link) => (
