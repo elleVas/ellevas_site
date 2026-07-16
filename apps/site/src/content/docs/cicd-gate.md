@@ -1,7 +1,7 @@
 ---
 title: CI/CD Gate
 description: Come configurare il gate CI/CD che blocca la pipeline se gli sprechi AWS superano il budget.
-order: 5
+order: 11
 ---
 
 # CI/CD Gate

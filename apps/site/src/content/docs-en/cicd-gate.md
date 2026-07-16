@@ -1,7 +1,7 @@
 ---
 title: CI/CD Gate
 description: How to set up the CI/CD gate that blocks the pipeline if AWS waste exceeds the budget.
-order: 5
+order: 11
 ---
 
 # CI/CD Gate

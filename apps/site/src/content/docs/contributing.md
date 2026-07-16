@@ -1,7 +1,7 @@
 ---
 title: Contributing
 description: Come contribuire al progetto cloudrift.
-order: 6
+order: 12
 ---
 
 # Contributing
