@@ -25,6 +25,14 @@ export class DnsCertificateStack extends Stack {
       domainName: DOMAIN_NAME,
     });
 
+    // Google Search Console domain verification
+    new route53.TxtRecord(this, 'GoogleSiteVerification', {
+      zone: hostedZone,
+      recordName: DOMAIN_NAME,
+      values: ['google-site-verification=ZoFt1qOFKNLBcKrOjLW1Tttfie7fjtKXVxJDsOZ30WU'],
+      comment: 'Google Search Console ownership verification',
+    });
+
     // TLS certificate covering both apex and www
     this.certificate = new acm.Certificate(this, 'SiteCertificate', {
       domainName: DOMAIN_NAME,
