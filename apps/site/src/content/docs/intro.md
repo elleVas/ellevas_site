@@ -19,7 +19,7 @@ Le risorse AWS inutilizzate accumulano costi senza valore. EBS volumes non attac
 
 ## Cosa rileva
 
-cloudrift analizza **35 tipi di risorse** suddivisi in due categorie:
+cloudrift analizza **38 tipi di risorse** suddivisi in due categorie:
 
 - **`waste`** — denaro speso ora, eliminabile rimuovendo la risorsa. Contribuisce al totale principale e al gate CI.
 - **`optimization`** — opportunità di risparmio che mantiene la risorsa, mostrata a parte e mai usata come gate.
@@ -53,6 +53,8 @@ cloudrift analizza **35 tipi di risorse** suddivisi in due categorie:
 | **Kinesis Streams (idle)** | Provisioned, zero record in 48h | ~$10,95/mese per shard |
 | **SQS DLQ (abbandonate)** | Messaggio più vecchio > 14 giorni | $0 (igiene) |
 | **CloudWatch Log Groups (Lambda orfani)** | Funzione Lambda non più esistente | $0,03/GB-mese |
+| **SageMaker Notebook Instances (idle)** | `InService`, CPU max ≤ 2% in 7 giorni | Costo pieno instance-hour |
+| **SageMaker Endpoints (idle)** | `InService`, zero invocazioni in 7 giorni | Costo pieno instance-hour × istanze |
 
 ### Ottimizzazioni (optimization)
 
@@ -78,7 +80,7 @@ cloudrift analizza **35 tipi di risorse** suddivisi in due categorie:
 
 ## Caratteristiche principali
 
-- Scansione multi-servizio (35 scanner) e multi-regione
+- Scansione multi-servizio (38 scanner) e multi-regione
 - Stima dei costi mensili per ogni risorsa (prezzi region-aware, 6 regioni con listino specifico)
 - Report PDF con executive summary e raccomandazioni
 - CI/CD gate: blocca la pipeline se gli sprechi superano una soglia (`costAlertThresholdUsd`)

@@ -21,7 +21,7 @@ cloudrift uses a multi-level test pyramid to balance speed, confidence and cost.
         │  Domain (entity/policy) │   pure logic: waste rules, boundaries, no I/O
         └─────────────────────────┘
         ┌─────────────────────────┐
-        │  LocalStack e2e (free)  │   scripts/e2e-localstack.mjs, 17/35 scanners
+        │  LocalStack e2e (free)  │   scripts/e2e-localstack.mjs, 17/38 scanners
         ├─────────────────────────┤
         │  Manual AWS sandbox     │   scripts/verify-against-aws.mjs
         └─────────────────────────┘
@@ -73,7 +73,7 @@ One spec per scanner, with the AWS SDK client mocked. Each covers:
 
 Scanner specs build minimal payloads by hand; they can't prove the shape matches real AWS responses. `scanner-contract.spec.ts` replays full captured AWS response fixtures (from `src/testing/contract-fixtures/`) through the entire scanner pipeline — list → type-narrowing → metric → entity → policy — and asserts the same findings come out.
 
-All 29 scanners have contract fixtures. A coverage test fails if a `ResourceKind` ships without one.
+All 38 scanners have contract fixtures. A coverage test fails if a `ResourceKind` ships without one.
 
 ## Level 4 — CLI e2e
 
@@ -88,7 +88,7 @@ All 29 scanners have contract fixtures. A coverage test fails if a `ResourceKind
 
 Runs the built CLI binary against a real (containerized) AWS-compatible API. No real AWS credentials needed.
 
-**Scope:** 17 of 35 scanners (the others require services LocalStack Community doesn't support).
+**Scope:** 17 of 38 scanners (the others require services LocalStack Community doesn't support).
 
 ### Setup
 

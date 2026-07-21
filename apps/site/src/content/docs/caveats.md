@@ -85,6 +85,6 @@ L'unico modo per avvicinarsi alla bolletta reale: override `prices` nel config c
 - **Non è un tool di enforcement** — segnala, non agisce
 - **Non sostituisce AWS Compute Optimizer** — per raccomandazioni di sizing usa Compute Optimizer
 - **Non sostituisce Cost Explorer** — per analisi precisa dei costi usa la console AWS
-- **Non copre tutti i servizi AWS** — ci sono centinaia di servizi, cloudrift ne copre 35
+- **Non copre tutti i servizi AWS** — ci sono centinaia di servizi, cloudrift ne copre 38
 - **Non rileva Provisioned Concurrency Lambda** — fuori scope per ora
 - **Non parla con la Kubernetes API** — solo AWS API, nessun kubeconfig

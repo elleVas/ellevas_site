@@ -25,7 +25,40 @@ Nel file `cloudrift.config.json` (committato nel repo):
 
 Se il totale `waste` supera `costAlertThresholdUsd`, il comando esce con codice 2 → la pipeline fallisce. I risparmi di tipo `optimization` non contano mai verso il gate.
 
-## GitHub Actions — esempio completo
+## GitHub Actions — come azione riutilizzabile
+
+[`action.yml`](https://github.com/elleVas/cloudrift/blob/main/action.yml) nella root del repo incapsula `npm install -g @cloudrift/cli` + `cloudrift analyze`, pubblica il report markdown nel job summary, e fa fallire il job con gli stessi exit code della CLI (`2` = oltre budget):
+
+```yaml
+name: Cloud cost check
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  cloudrift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # per cloudrift.config.json, letto dalla cwd
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - uses: elleVas/cloudrift@v0.5.1
+        with:
+          regions: us-east-1 eu-west-1
+          config: cloudrift.config.json
+```
+
+Con un `cloudrift.config.json` committato (`{"costAlertThresholdUsd": 500}`), l'azione fa fallire il check automaticamente quando lo spreco supera il budget. Vedi `action.yml` per tutti gli input (`live-pricing`, `scanners`, `min-age-days`, `ignore-tag`, `pdf`, `json`, `format`, `version`, …) e gli output `report`/`exit-code`.
+
+## GitHub Actions — compilando dai sorgenti
+
+Alternativa se preferisci puntare a un commit non ancora rilasciato invece che a una versione pubblicata:
 
 ```yaml
 name: Cloud cost check
@@ -76,5 +109,4 @@ jobs:
 ## Note
 
 - In CI (o quando stdout non è un TTY), il picker interattivo non appare: tutti gli scanner vengono eseguiti automaticamente
-- Una volta pubblicato `@cloudrift/cli` su npm, gli step di build si ridurranno a `npx @cloudrift/cli@latest analyze …`
 - `cloudrift.config.json` viene letto dalla working directory corrente — committalo nel repo per condividerlo col team

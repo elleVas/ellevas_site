@@ -85,6 +85,6 @@ The only way to approximate your actual bill: `prices` overrides in the config w
 - **Not an enforcement tool** — it reports, it never acts
 - **Not a replacement for AWS Compute Optimizer** — for sizing recommendations use Compute Optimizer
 - **Not a replacement for Cost Explorer** — for precise cost analysis use the AWS console
-- **Not a comprehensive AWS coverage** — there are hundreds of services, cloudrift covers 35
+- **Not a comprehensive AWS coverage** — there are hundreds of services, cloudrift covers 38
 - **Does not detect Lambda Provisioned Concurrency** — out of scope for now
 - **Does not talk to the Kubernetes API** — AWS API only, no kubeconfig

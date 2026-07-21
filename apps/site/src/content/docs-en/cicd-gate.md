@@ -25,7 +25,40 @@ In the `cloudrift.config.json` file (committed to the repo):
 
 If the total `waste` exceeds `costAlertThresholdUsd`, the command exits with code 2 → pipeline fails. Savings of type `optimization` never count towards the gate.
 
-## GitHub Actions — full example
+## GitHub Actions — as a reusable action
+
+[`action.yml`](https://github.com/elleVas/cloudrift/blob/main/action.yml) at the repo root wraps `npm install -g @cloudrift/cli` + `cloudrift analyze`, posts the markdown report to the job summary, and fails the job on the same exit codes as the CLI (`2` = over budget):
+
+```yaml
+name: Cloud cost check
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  cloudrift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # for cloudrift.config.json, read from the cwd
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - uses: elleVas/cloudrift@v0.5.1
+        with:
+          regions: us-east-1 eu-west-1
+          config: cloudrift.config.json
+```
+
+With a `cloudrift.config.json` committed (`{"costAlertThresholdUsd": 500}`), the action fails the check automatically when waste exceeds the budget. See `action.yml` for every input (`live-pricing`, `scanners`, `min-age-days`, `ignore-tag`, `pdf`, `json`, `format`, `version`, …) and the `report`/`exit-code` outputs.
+
+## GitHub Actions — building from source
+
+Alternative if you'd rather pin to an unreleased commit instead of a published version:
 
 ```yaml
 name: Cloud cost check
@@ -76,5 +109,4 @@ jobs:
 ## Notes
 
 - In CI (or when stdout is not a TTY), the interactive picker doesn't appear: all scanners run automatically
-- Once `@cloudrift/cli` is published on npm, build steps will reduce to `npx @cloudrift/cli@latest analyze …`
 - `cloudrift.config.json` is read from the current working directory — commit it to the repo to share with the team

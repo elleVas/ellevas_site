@@ -8,22 +8,27 @@ order: 2
 
 ## Prerequisites
 
-- **Node.js 18+** — check with `node --version`
-- **pnpm** — required to build from source (`npm install -g pnpm`)
+- **Node.js 20+** — check with `node --version`
 - **AWS credentials** with read-only permissions (see [Required IAM permissions](#required-iam-permissions) below)
 
 ## Installation
 
-> **No npm package yet.** `@cloudrift/cli` is not published on npm — for now it must be built and run from source.
+```bash
+npm install -g @cloudrift/cli
+# or run it once-off, without installing:
+npx @cloudrift/cli analyze
+```
+
+**From source** (for contributing, or to run unreleased changes):
 
 ```bash
 git clone https://github.com/elleVas/cloudrift.git
 cd cloudrift
 pnpm install
-pnpm nx build cli
+pnpm nx build cli   # output compiled to apps/cli/dist/
 ```
 
-Output is compiled to `apps/cli/dist/`.
+The examples below use the `cloudrift` command (npm install). Running from source instead? Replace `cloudrift` with `node apps/cli/dist/main.js`.
 
 ## AWS credentials setup
 
@@ -114,19 +119,19 @@ The AWS user/role must have this read-only policy:
 ```bash
 # Scan the default region (us-east-1)
 # Account ID is auto-detected via STS
-node apps/cli/dist/main.js analyze
+cloudrift analyze
 
 # Scan multiple regions
-node apps/cli/dist/main.js analyze -r us-east-1 eu-west-1 ap-southeast-1
+cloudrift analyze -r us-east-1 eu-west-1 ap-southeast-1
 
 # Specific services only (skips the interactive picker)
-node apps/cli/dist/main.js analyze --scanners ebs-volume elastic-ip
+cloudrift analyze --scanners ebs-volume elastic-ip
 
 # All scanners without interactive picker
-node apps/cli/dist/main.js analyze --all-services
+cloudrift analyze --all-services
 
 # Disable the grace period (report resources of any age)
-node apps/cli/dist/main.js analyze --min-age-days 0
+cloudrift analyze --min-age-days 0
 ```
 
 ### The interactive picker
@@ -144,16 +149,16 @@ In those cases all scanners run automatically.
 
 ```bash
 # Console table (default)
-node apps/cli/dist/main.js analyze
+cloudrift analyze
 
 # JSON output (machine-readable, ideal for piping)
-node apps/cli/dist/main.js analyze --format json | jq '.totalWasteMonthlyUsd'
+cloudrift analyze --format json | jq '.totalWasteMonthlyUsd'
 
 # Filter findings with jq
-node apps/cli/dist/main.js analyze --format json | jq '.findings[] | select(.category=="waste")'
+cloudrift analyze --format json | jq '.findings[] | select(.category=="waste")'
 
 # Markdown for GitHub Actions step summary
-node apps/cli/dist/main.js analyze --format markdown >> "$GITHUB_STEP_SUMMARY"
+cloudrift analyze --format markdown >> "$GITHUB_STEP_SUMMARY"
 ```
 
 > In machine-readable formats (`json`, `markdown`) all human messages are routed to stderr, so stdout carries only the report — ideal for piping.
@@ -162,10 +167,10 @@ node apps/cli/dist/main.js analyze --format markdown >> "$GITHUB_STEP_SUMMARY"
 
 ```bash
 # PDF with auto-generated filename (reports/AWS_report_YYYY_MM_DD.pdf)
-node apps/cli/dist/main.js analyze --pdf
+cloudrift analyze --pdf
 
 # PDF with custom filename, no terminal output
-node apps/cli/dist/main.js analyze --pdf ./report.pdf --silent
+cloudrift analyze --pdf ./report.pdf --silent
 ```
 
 The PDF report contains:
@@ -180,10 +185,10 @@ The PDF report contains:
 
 ```bash
 # Also writes a JSON file to disk (independent of --format)
-node apps/cli/dist/main.js analyze --json
+cloudrift analyze --json
 
 # With custom filename
-node apps/cli/dist/main.js analyze --json ./report.json --silent
+cloudrift analyze --json ./report.json --silent
 ```
 
 ## Partial failure handling
