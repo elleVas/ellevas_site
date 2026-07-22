@@ -21,7 +21,7 @@ cloudrift uses a multi-level test pyramid to balance speed, confidence and cost.
         │  Domain (entity/policy) │   pure logic: waste rules, boundaries, no I/O
         └─────────────────────────┘
         ┌─────────────────────────┐
-        │  LocalStack e2e (free)  │   scripts/e2e-localstack.mjs, 17/38 scanners
+        │  LocalStack e2e (free)  │   scripts/e2e-localstack.mjs, 17/43 scanners
         ├─────────────────────────┤
         │  Manual AWS sandbox     │   scripts/verify-against-aws.mjs
         └─────────────────────────┘
@@ -73,7 +73,7 @@ One spec per scanner, with the AWS SDK client mocked. Each covers:
 
 Scanner specs build minimal payloads by hand; they can't prove the shape matches real AWS responses. `scanner-contract.spec.ts` replays full captured AWS response fixtures (from `src/testing/contract-fixtures/`) through the entire scanner pipeline — list → type-narrowing → metric → entity → policy — and asserts the same findings come out.
 
-All 38 scanners have contract fixtures. A coverage test fails if a `ResourceKind` ships without one.
+All 43 scanners have contract fixtures. A coverage test fails if a `ResourceKind` ships without one.
 
 ## Level 4 — CLI e2e
 
@@ -88,7 +88,7 @@ All 38 scanners have contract fixtures. A coverage test fails if a `ResourceKind
 
 Runs the built CLI binary against a real (containerized) AWS-compatible API. No real AWS credentials needed.
 
-**Scope:** 17 of 38 scanners (the others require services LocalStack Community doesn't support).
+**Scope:** 17 of 43 scanners (the others require services LocalStack Community doesn't support).
 
 ### Setup
 
@@ -152,6 +152,15 @@ The script refuses to run without:
 - Resolvable AWS credentials (verified via STS)
 
 For each scanner it prints: kind, finding count, total estimated monthly cost, first 5 findings, and any error.
+
+## Real AWS verification status
+
+As the number of scanners grew, real AWS verification moved to a separate deploy/validate/destroy cycle against a real AWS account (a test CDK stack in a sibling repo, `cloudrift-cdk-test`).
+
+**Current coverage: 36 of 43 scanners found real waste on a live AWS account.** The remaining 7 fall into two gap types:
+
+- `rds-manual-snapshot-old` and `secretsmanager-unused` — ran end-to-end without errors but found nothing to report (waste conditions not met in the test account)
+- `rds-underutilized`, `aurora-serverless-overprovisioned`, `sqs-dlq-abandoned`, `eks-node-overprovisioned`, `environment-ghost` — require resources with organic usage patterns over 7–14 days, not producible with a short-lived synthetic stack
 
 ## Debug logging
 

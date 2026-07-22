@@ -76,15 +76,23 @@ L'utente/ruolo AWS deve avere questa policy in sola lettura:
     "ec2:DescribeImages",
     "ec2:DescribeNatGateways",
     "ec2:DescribeNetworkInterfaces",
+    "ec2:DescribeLaunchTemplates",
+    "ec2:DescribeLaunchTemplateVersions",
     "cloudwatch:GetMetricStatistics",
     "rds:DescribeDBInstances",
     "rds:DescribeDBClusters",
+    "rds:DescribeDBSnapshots",
     "elasticloadbalancing:DescribeLoadBalancers",
     "elasticloadbalancing:DescribeTargetGroups",
     "elasticloadbalancing:DescribeTargetHealth",
     "logs:DescribeLogGroups",
     "s3:ListAllMyBuckets",
     "s3:GetBucketLifecycleConfiguration",
+    "s3:ListMultipartUploadParts",
+    "s3:ListBucketMultipartUploads",
+    "ecr:DescribeRepositories",
+    "ecr:DescribeImages",
+    "secretsmanager:ListSecrets",
     "lambda:ListFunctions",
     "elasticfilesystem:DescribeFileSystems",
     "dynamodb:ListTables",
@@ -225,6 +233,26 @@ L'exit code resta guidato **solo** dalla soglia di costo, mai dagli errori di sc
 | `--json [filename]` | Genera report JSON su disco | — |
 | `--silent` | Nessun output su stdout | off |
 | `-h, --help` | Mostra l'help | — |
+
+## Comandi cost e trend
+
+Oltre alla waste detection, cloudrift offre due comandi per confrontare e tracciare la spesa AWS via Cost Explorer:
+
+```bash
+# Confronta spesa di questo mese con gli stessi giorni del mese scorso
+cloudrift cost
+
+# Trend mensile degli ultimi 12 mesi
+cloudrift trend --months 12
+
+# Solo EC2 e S3, salta la conferma di fatturazione
+cloudrift trend --months 12 --services ec2 s3 --yes
+
+# Fallisce in CI se la spesa è aumentata più del 20%
+cloudrift cost --fail-on-increase 20 --format json
+```
+
+> ⚠️ `cost` e `trend` chiamano **AWS Cost Explorer, che fattura $0.01 a richiesta** — gli unici comandi di cloudrift che possono generare un costo AWS. Entrambi chiedono conferma interattiva prima della prima chiamata (saltabile con `-y`/`--yes`, `--silent`, o in CI). I periodi chiusi vengono cachati su disco.
 
 ## Output di esempio
 

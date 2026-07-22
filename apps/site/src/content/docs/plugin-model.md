@@ -40,6 +40,17 @@ interface WasteScannerPort {
 | EFS File Systems | EFS | Zero I/O in 48h |
 | DynamoDB Tables | DynamoDB | Provisioned, utilizzo < 10% in 7 giorni |
 | ElastiCache, Redshift, OpenSearch, MSK, FSx, DocumentDB, Neptune, MQ, WorkSpaces, VPN, Transit Gateway, Kinesis | Vari | Idle (zero attività in 48h) |
+| SQS DLQ (abbandonate) | SQS | Messaggio più vecchio > 14 giorni |
+| CloudWatch Log Groups (Lambda orfani) | CloudWatch | Funzione Lambda non più esistente |
+| Aurora Serverless v2 | RDS | Min ACU sovradimensionato |
+| SageMaker Notebooks/Endpoints/Models | SageMaker | Idle o orfani |
+| Ambienti Dev/PR fantasma | Multi-servizio | Tutte le risorse inattive da 7+ giorni |
+| EKS Node Groups / PVC orfani | EKS | Sovradimensionati o non attaccati |
+| AMI (inutilizzate) | EC2 | Non referenziate da istanze o launch template |
+| ECR Images (senza tag) | ECR | Immagine dangling in un repository |
+| S3 Multipart upload (abbandonati) | S3 | Upload incompleto mai completato |
+| RDS Snapshot manuali (vecchi) | RDS | Snapshot più vecchio del grace period |
+| Secrets Manager (inutilizzati) | Secrets Manager | Non acceduti da 30+ giorni |
 
 ## Aggiungere un nuovo scanner
 
@@ -52,4 +63,6 @@ Guida step-by-step (dal [README](https://github.com/elleVas/cloudrift)):
 5. **Implementa lo scanner** in `libs/cloud-cost/infrastructure/aws-adapter/src/scanners/` (implementa `WasteScannerPort`)
 6. **Registra** il presenter in `apps/cli/src/formatters/resource-presenters.ts` e lo scanner in `analyze-waste.composition.ts`
 
-Nessuna modifica ad `AnalyzeCloudWasteUseCase`, al summary o al report DTO.
+**Nessuna modifica** necessaria ad `AnalyzeCloudWasteUseCase`, `WastedResourcesSummary`, `WasteReportDto`, né ai formatter.
+
+Il compilatore TypeScript guida l'intero processo: dopo aver aggiunto il kind alla union `ResourceKind`, `pnpm nx run-many -t typecheck` indica esattamente i punti da completare.

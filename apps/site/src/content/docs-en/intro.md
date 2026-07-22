@@ -19,7 +19,7 @@ Unused AWS resources accumulate costs with no value. Unattached EBS volumes, una
 
 ## What it detects
 
-cloudrift analyzes **38 resource types** divided into two categories:
+cloudrift analyzes **43 resource types** divided into two categories:
 
 - **`waste`** — money being spent now, eliminable by removing/detaching the resource. Contributes to the headline total and the CI gate.
 - **`optimization`** — a savings opportunity that keeps the resource, shown separately and never gated.
@@ -55,6 +55,11 @@ cloudrift analyzes **38 resource types** divided into two categories:
 | **CloudWatch Log Groups (orphaned Lambda)** | Lambda function no longer exists | $0.03/GB-month |
 | **SageMaker Notebook Instances (idle)** | `InService`, max CPU ≤ 2% over 7 days | Full instance-hour cost |
 | **SageMaker Endpoints (idle)** | `InService`, zero invocations over 7 days | Full instance-hour cost × instance count |
+| **AMI (unused)** | Owned AMI not referenced by any instance or launch template | Cost of underlying EBS snapshots, $0.05/GB-month |
+| **ECR Images (untagged)** | Dangling image (no tags) in a repository | $0.10/GB-month |
+| **S3 Multipart uploads (abandoned)** | Incomplete multipart upload, never completed or aborted | $0.023/GB-month |
+| **RDS Manual Snapshots (old)** | Manual snapshot older than the grace period | $0.095/GB-month |
+| **Secrets Manager Secrets (unused)** | Never accessed, or not accessed in the last 30 days | $0.40/secret/month fixed |
 
 ### Optimizations
 
@@ -78,10 +83,23 @@ cloudrift analyzes **38 resource types** divided into two categories:
 - **Exclusion tag** — any resource tagged `cloudrift:ignore` (configurable via `--ignore-tag`) is skipped
 - **AMI-bound snapshots** — orphan snapshots referenced by a registered AMI are not reported (they cannot be deleted anyway)
 
+## Spend comparison and trend
+
+Beyond waste detection, cloudrift can also compare and track actual AWS spend via Cost Explorer:
+
+```sh
+cloudrift cost                          # this month so far vs. the same days last month, by service
+cloudrift trend --months 12             # monthly spend over the last 12 months, ANSI bar chart
+```
+
+> ⚠️ Unlike every scanner above (free describe/list calls), `cost`/`trend` call **AWS Cost Explorer, which bills $0.01 per request** — the only cloudrift commands that can generate an AWS cost. Both prompt for confirmation before the first call (skippable with `-y`/`--yes`); closed billing periods are cached to disk so re-running the same command for the same dates doesn't bill again.
+
 ## Key features
 
-- Multi-service scanning (38 scanners) and multi-region
+- Multi-service scanning (43 scanners) and multi-region
 - Monthly cost estimate for every resource (region-aware pricing, 6 regions with specific pricing)
+- Spend comparison and trend via AWS Cost Explorer (`cost`, `trend`)
+- Interactive wizard for scanner, region, and mode selection
 - PDF report with executive summary and recommendations
 - CI/CD gate: blocks pipeline if waste exceeds a threshold (`costAlertThresholdUsd`)
 - Policy as Code with OPA for advanced rules (per-tag, per-type, per-count)
