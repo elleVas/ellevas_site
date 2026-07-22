@@ -1,7 +1,7 @@
 ---
 title: Pricing
 description: Come cloudrift risolve i costi — tabella statica, AWS Pricing API, override personalizzati.
-order: 6
+order: 7
 ---
 
 # Pricing

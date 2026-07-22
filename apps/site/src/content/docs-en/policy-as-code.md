@@ -1,7 +1,7 @@
 ---
 title: Policy as Code (OPA)
 description: Advanced rules with Open Policy Agent — from-zero walkthrough with conftest.
-order: 8
+order: 6
 ---
 
 # Policy as Code (OPA)

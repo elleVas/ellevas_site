@@ -1,7 +1,7 @@
 ---
 title: Architettura
 description: Struttura DDD con Ports & Adapters del progetto cloudrift.
-order: 3
+order: 11
 ---
 
 # Architettura

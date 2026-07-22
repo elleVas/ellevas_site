@@ -1,7 +1,7 @@
 ---
 title: Limiti e note oneste
 description: Cosa cloudrift non fa e non può sapere — limiti dichiarati per ogni tipo di check.
-order: 7
+order: 9
 ---
 
 # Limiti e note oneste

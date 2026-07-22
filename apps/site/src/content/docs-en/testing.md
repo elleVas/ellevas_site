@@ -1,7 +1,7 @@
 ---
 title: Testing
 description: Test pyramid — unit, contract, LocalStack e2e, manual AWS verification.
-order: 10
+order: 13
 ---
 
 # Testing

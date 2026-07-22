@@ -1,7 +1,7 @@
 ---
 title: Honest Caveats
 description: What cloudrift does not and cannot know — declared limits for each check type.
-order: 7
+order: 9
 ---
 
 # Honest Caveats

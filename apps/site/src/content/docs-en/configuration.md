@@ -1,7 +1,7 @@
 ---
 title: Configuration
 description: Configuration file cloudrift.config.json — fields, thresholds, price overrides.
-order: 5
+order: 3
 ---
 
 # Configuration

@@ -1,7 +1,7 @@
 ---
 title: Testing
 description: Piramide dei test — unit, contract, e2e LocalStack, verifica manuale AWS.
-order: 10
+order: 13
 ---
 
 # Testing

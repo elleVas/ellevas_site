@@ -1,7 +1,7 @@
 ---
 title: Scanner verticali
 description: Scanner Phase 6 — SQS, Aurora, SageMaker, ambienti Dev/PR, EKS.
-order: 9
+order: 8
 ---
 
 # Scanner verticali (Phase 6)

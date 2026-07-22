@@ -1,7 +1,7 @@
 ---
 title: Plugin Model
 description: How cloudrift scanners work and how to add a new one.
-order: 4
+order: 12
 ---
 
 # Plugin Model
